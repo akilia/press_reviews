@@ -1,0 +1,36 @@
+[(#ID_PRESS_REVIEW|oui)
+	[(#AUTORISER{modifier,press_review,#ID_PRESS_REVIEW}|sinon_interdire_acces)]
+	[(#SET{id_parent,#INFO_ID_LIVRE{press_review,#ID_PRESS_REVIEW}})]
+]
+
+[(#ID_PRESS_REVIEW|non)
+	#SET{id_parent,#ENV{id_livre,#ENV{id_parent}}}
+	[(#GET{id_parent}|non|ou{[(#AUTORISER{creerpressreviewdans, livre, #GET{id_parent}})]}|sinon_interdire_acces)]
+]
+
+#SET{redirect,#ENV{redirect}|sinon{#ID_PRESS_REVIEW|?{#ID_PRESS_REVIEW|generer_url_entite{press_review},#GET{id_parent}|?{#GET{id_parent}|generer_url_entite{livre},#URL_ECRIRE{livres}}}}}
+
+
+
+<div class="cadre-formulaire-editer">
+<div class="entete-formulaire">
+	[(#ID_PRESS_REVIEW|oui)
+	[(#GET{redirect}|icone_verticale{<:icone_retour:>,press_review,'',left retour[(#ENV{retourajax,''}|oui)ajax preload]})]
+	]
+	[
+		[(#ID_PRESS_REVIEW|?{<:press_review:icone_modifier_press_review:>,<:press_review:icone_creer_press_review:>})]
+		<h1>(#ENV{titre,#INFO_TITRE{press_review,#ID_PRESS_REVIEW}|sinon{<:info_sans_titre:>}})</h1>
+	]
+</div>
+
+#SET{redirect,#ENV{redirect,#ID_PRESS_REVIEW|generer_url_entite{press_review}}}
+[(#ENV{retourajax,''}|oui)
+	#SET{redirect,'javascript:if (window.jQuery) jQuery(".entete-formulaire .retour a").followLink();'}
+	<div class="ajax">
+]
+		[(#FORMULAIRE_EDITER_PRESS_REVIEW{#ENV{id_press_review,oui}, #GET{id_parent}, #GET{redirect}})]
+[(#ENV{retourajax,''}|oui)
+	</div>
+	<script type="text/javascript">/*<!\[CDATA\[*/reloadExecPage('#ENV{exec}');/*\]\]>*/</script>
+]
+</div>

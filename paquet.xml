@@ -1,0 +1,34 @@
+<paquet
+	prefix="press_reviews"
+	categorie="divers"
+	version="1.0.0"
+	etat="dev"
+	compatibilite="[3.2.1;3.2.*]"
+	logo="prive/themes/spip/images/press_reviews-64.png"
+	documentation=""
+	schema="1.0.0" 
+>
+	<!--
+		Paquet généré le 2018-11-22 10:04:09
+	-->
+
+	<nom>Coupure de presse</nom>
+	<!-- Lier des coupures de presse à un article, un livre, etc. -->
+
+	<auteur lien='http://www.arlea.fr'>Pierre Miquel</auteur>
+
+	<licence>GNU/GPL</licence>
+	<necessite nom="saisies" compatibilite="[2.4.0;]" /> 
+	<necessite nom="cvtupload" compatibilite="[1.15.6;]" /> 
+	<necessite nom="roles_documents" compatibilite="[1.2.17;]" />
+
+
+	<pipeline nom="autoriser" inclure="press_reviews_autorisations.php" /> 
+
+	<pipeline nom="declarer_tables_objets_sql" inclure="base/press_reviews.php" /> 
+	<pipeline nom="declarer_tables_interfaces" inclure="base/press_reviews.php" /> 
+	<pipeline nom="affiche_enfants" inclure="press_reviews_pipelines.php" /> 
+	<pipeline nom="boite_infos" inclure="press_reviews_pipelines.php" /> 
+	<pipeline nom="objet_compte_enfants" inclure="press_reviews_pipelines.php" /> 
+
+</paquet>

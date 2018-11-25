@@ -1,0 +1,40 @@
+<div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_press_review,nouveau}'>
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+	[<ol class="reponse_formulaire reponse_formulaire_erreur">(#ENV{message_erreur}) 
+		[<li>&#8226; &nbsp;<span class="erreur_message"">(#ENV{erreurs/id_livre})</span></li>]
+		[<li>&#8226; &nbsp;<span class="erreur_message"">(#ENV{erreurs/upload})</span></li>]
+	</ol>]
+
+	[(#ENV{editable})
+	<form method="post" action="#ENV{action}" enctype="multipart/form-data"><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<input type="hidden" name="id_press_review" value="#ENV{id_press_review}">
+		<input type="hidden" name="id_livre" value="#ENV{id_livre}">
+		<input type="hidden" name="id_document" value="#ENV{id_document}">
+
+		<div class="editer-groupe" style='padding-top:0;'>
+				<div class="editer editer_coupure_presse fieldset">
+					<fieldset style='background-color: #E9E9E9; border-top:none;'>
+					 	 <div class="editer-groupe">
+							[(#INCLURE{fond=formulaires/inc-upload_press_review, env, role=document, doc_press_release})]
+						</div>
+						<!--
+						<p class="boutons" style='background-color: #E9E9E9; border: 0;'><input type='submit' class='submit' name='btn_ajoute_press_review' value='<:bouton_ajouter:>'></p>
+					-->
+					</fieldset>
+				</div>
+
+			[(#SAISIE{input, titre, label=<:press_review:champ_titre_label:>})]
+
+			[(#SAISIE{textarea, descriptif, label=<:press_review:champ_descriptif_label:>,
+				conteneur_class=pleine_largeur, class=inserer_barre_forum, rows=3})]
+
+			[(#SAISIE{input, credit, label=<:press_review:champ_credit_label:>})]
+
+		</div>
+		[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
+		<!--extra-->
+		<p class="boutons"><input type="submit" class="submit" value="<:bouton_enregistrer:>" /></p>
+	</div></form>
+	]
+</div>

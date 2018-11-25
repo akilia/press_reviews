@@ -1,0 +1,24 @@
+<BOUCLE_press_review(PRESS_REVIEWS){id_press_review}>
+[<div class="champ contenu_titre[ (#TITRE*|strlen|?{'',vide})]">
+	<label><:press_review:champ_titre_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{titre} titre">(#TITRE)</span>
+</div>]
+
+<BOUCLE_pdf_joint(DOCUMENTS){id_document}{tous}>
+<div class="media">
+	<a href="#URL_DOCUMENT"[(#DISTANT|=={non}|oui)class='popin']>#LOGO_DOCUMENT</a>
+	[<span>(#DISTANT|=={oui}|oui)#FICHIER</span><br>]
+</div>
+</BOUCLE_pdf_joint>
+
+[<div class="champ contenu_descriptif[ (#DESCRIPTIF*|strlen|?{'',vide})]">
+	<label><:press_review:champ_descriptif_label:> : </label>
+	<span dir="#LANG_DIR" class="#EDIT{descriptif} descriptif">(#DESCRIPTIF)</span>
+</div>]
+
+[<div class="champ contenu_credit[ (#CREDIT*|strlen|?{'',vide})]">
+	<label><:press_review:champ_credit_label:> : </label>
+	<b dir="#LANG_DIR" class="#EDIT{credit} credit">(#CREDIT)</b>
+</div>]
+
+</BOUCLE_press_review>

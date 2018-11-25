@@ -1,0 +1,35 @@
+[(#SET{defaut_tri,#ARRAY{
+	titre,1,
+	date_en_ligne,-1,
+	id_press_review,1,
+	points,-1
+}})]<B_liste_press_reviews>
+#ANCRE_PAGINATION
+<div class="liste-objets press_reviews">
+<table class="spip liste">
+	[<caption><strong class="caption">(#ENV*{titre,#GRAND_TOTAL|singulier_ou_pluriel{press_review:info_1_press_review,press_review:info_nb_press_reviews}})</strong></caption>]
+	<thead>
+		<tr class="first_row">
+			<th class="logo" scope="col"><:press_review:media:></th>
+			<th class="titre" scope="col">[(#TRI{titre,<:press_review:champ_titre_label:>,ajax})]</th>
+			<th class="id" scope="col">[(#TRI{id_press_review,<:info_numero_abbreviation:>,ajax})]</th>
+		</tr>
+	</thead>
+	<tbody>
+	<BOUCLE_liste_press_reviews(PRESS_REVIEWS){id_livre?}{id_mot?}{id_auteur?}{where?}{recherche?}{tri #ENV{par,num titre},#GET{defaut_tri}}{par titre}{pagination #ENV{nb,10}}>
+		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+			<td class='logo_media'>[(#LOGO_PRESS_REVIEW|image_reduire{80,35})]</td>
+			<td class="titre principale"><a href="[(#ID_PRESS_REVIEW|generer_url_entite{press_review})]" title="<:info_numero_abbreviation|attribut_html:> #ID_PRESS_REVIEW">[(#RANG). ][(#TITRE|sinon{#INFO_FICHIER{document,#ID_DOCUMENT}|basename})][<span class="soustitre">Par <i>(#CREDIT)</i></span>]</a></td>
+			<td class="id">[(#AUTORISER{modifier,press_review,#ID_PRESS_REVIEW}|?{
+				<a href="[(#URL_ECRIRE{press_review_edit,id_press_review=#ID_PRESS_REVIEW})]">#ID_PRESS_REVIEW</a>,
+				#ID_PRESS_REVIEW
+			})]</td>
+		</tr>
+	</BOUCLE_liste_press_reviews>
+	</tbody>
+</table>
+[<p class="pagination">(#PAGINATION{prive})</p>]
+</div>
+</B_liste_press_reviews>[
+<div class="liste-objets press_reviews caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
+]<//B_liste_press_reviews>

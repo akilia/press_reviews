@@ -1,0 +1,16 @@
+<BOUCLE_press_review(PRESS_REVIEWS){id_press_review=#ENV{id}}>
+<div class="infos">
+[(#SET{texte_objet,<:press_review:titre_press_review:>})]
+<div class="numero"><:titre_cadre_numero_objet{objet=#GET{texte_objet}}:><p>#ID_PRESS_REVIEW</p></div>
+
+	<div class='nb_elements'><!--nb_elements--></div>
+
+	[(#AUTORISER{supprimer, press_review, #ID_PRESS_REVIEW}|oui)
+		[(#BOUTON_ACTION{
+			[(#CHEMIN_IMAGE{press_review-del-24.png}|balise_img{<:press_review:supprimer_press_review:>}|concat{' ',#VAL{<:press_review:supprimer_press_review:>}|wrap{<b>}}|trim)],
+			#URL_ACTION_AUTEUR{supprimer_press_review, #ID_PRESS_REVIEW, #URL_ECRIRE{press_reviews}},
+			icone s24 horizontale danger press_review-del-24, <:press_review:confirmer_supprimer_press_review:>})]
+	]
+
+</div>
+</BOUCLE_press_review>

@@ -1,0 +1,71 @@
+#SET{domid,_#ENV{mode}|concat{'_',#ENV{id,new}}}
+#SET{methode, ordinateur}
+#SET{methodes_upload, #REM|press_release_methode_upload}
+
+<div id="defaultsubmit#GET{domid}" class="none"></div>
+
+<BOUCLE_methodes(DATA){source tableau,#GET{methodes_upload}}{si #ID_DOCUMENT|=={0}}>
+	#SET{methode_upload,#CLE}
+	<div class='joindre_mode#GET{domid}[(#GET{methode}|=={#CLE}|non)none-js]' id='joindre_#CLE#GET{domid}'>
+
+		<INCLURE{fond=formulaires/methodes_upload/#CLE,env,domid=#GET{domid}} />
+
+		<B_methodes_liens>
+		<div class='editer sourceup'>
+			<:medias:bouton_download_depuis:>
+			<BOUCLE_methodes_liens(DATA){source tableau,#GET{methodes_upload}}{'|'}>
+				[(#GET{methode_upload}|=={#CLE}|oui)
+					#VALEUR{label_lien}
+				]
+				[(#GET{methode_upload}|=={#CLE}|non)
+					<a href='#' onclick="change_methode('#GET{domid}','#CLE');return false;">#VALEUR{label_lien}</a>
+				]
+			</BOUCLE_methodes_liens>
+		</div>
+		</B_methodes_liens>
+	</div>
+</BOUCLE_methodes>
+	<BOUCLE_pdf_joint(DOCUMENTS){id_document}{tous}>
+	<div class="media">
+		<div>
+			<a href="#URL_DOCUMENT"[(#DISTANT|=={non}|oui)class='popin']>#LOGO_DOCUMENT</a>
+			[<span>(#DISTANT|=={oui}|oui)#FICHIER</span><br>]
+			[<a id="changer" href="">Changer</a>]
+		</div>
+
+		[(#REM) si clic sur Changer : reproposer le formulaire ad-hoc (Ordinateur ou Distant)]
+		<div id='a_changer'>
+			[(#DISTANT|=={non}|oui)[(#SAISIE{fichiers, upload_press_review, label=<:bouton_upload:>, mime=#ENV{mime}})]]
+			[(#DISTANT|=={oui}|oui)[(#SAISIE{input, url, label=<:medias:info_referencer_doc_distant:>})]]
+		</div>
+	</div>
+	<script type="text/javascript">
+	(function($){
+		$(document).ready(function(){
+			$('#a_changer').hide()
+			$('#changer').on('click', function(e){
+				e.preventDefault();
+				$('#a_changer').toggle();
+			});
+		});
+	})(jQuery);
+	</script>
+	</BOUCLE_pdf_joint>
+<//B_methodes>
+
+<script type='text/javascript'>/*<!\[CDATA\[*/
+if (window.jQuery){
+function change_methode(domid,methode){
+	var id = "#joindre_"+methode+domid;
+	if (jQuery(id).is(':hidden')) {
+		jQuery('div.joindre_mode'+domid+':visible').slideUp('fast');
+		jQuery(id).slideDown('fast');
+	}
+	// placer en haut du formulaire les boutons submit par defaut correspondant a la methode active
+	jQuery("#defaultsubmit"+domid).html('').append(jQuery(id).find('.boutons').eq(-1).find('input').clone(true));
+	var joindre = jQuery(id).find('.boutons').eq(-1).find('input').prop('name').replace('joindre_', '');
+	jQuery("#defaultsubmit"+domid).append($('<input>').attr({type: 'hidden', id: 'methode_focus', name: 'methode_focus', value: joindre}));
+}
+jQuery(function(){change_methode('#GET{domid}','#GET{methode}');});
+}
+/*\]\]>*/</script>
