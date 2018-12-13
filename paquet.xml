@@ -20,7 +20,7 @@
 	<licence>GNU/GPL</licence>
 	<necessite nom="saisies" compatibilite="[2.4.0;]" /> 
 	<necessite nom="cvtupload" compatibilite="[1.15.6;]" /> 
-	<necessite nom="roles_documents" compatibilite="[1.2.17;]" />
+	<necessite nom="roles_documents" compatibilite="[1.1.8;]" />
 
 
 	<pipeline nom="autoriser" inclure="press_reviews_autorisations.php" /> 
