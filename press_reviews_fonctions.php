@@ -13,6 +13,8 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 	return;
 }
 
+include_spip('inc/press_reviews_migration');
+
 function press_release_methode_upload() {
 	
 	// méthodes d'upload disponibles
