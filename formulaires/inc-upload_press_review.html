@@ -28,7 +28,8 @@
 	<BOUCLE_pdf_joint(DOCUMENTS){id_document}{tous}>
 	<div class="media">
 		<div>
-			<a href="#URL_DOCUMENT"[(#DISTANT|=={non}|oui)class='popin']>#LOGO_DOCUMENT</a>
+			[(#EXTENSION|in_any{#LISTE{jpg,png,gif,svg}}|oui)<a href="#URL_DOCUMENT">[(#FICHIER|image_reduire{200,150})]</a>]
+			[(#EXTENSION|in_any{#LISTE{jpg,png,gif,svg}}|non)<a href="#URL_DOCUMENT">#LOGO_DOCUMENT</a>]
 			[<span>(#DISTANT|=={oui}|oui)#FICHIER</span><br>]
 			[<a id="changer" href="">Changer</a>]
 		</div>
