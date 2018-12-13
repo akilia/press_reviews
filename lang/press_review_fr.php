@@ -30,6 +30,9 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_nb_press_reviews' => '@nb@ coupures de presse',
 	'info_press_reviews_auteur' => 'Les coupures de presse de cet auteur',
 
+	// L
+	'label_activer_press_review_objets' => 'Activer les coupures de presse pour les contenus :',
+
 	// R
 	'retirer_lien_press_review' => 'Retirer cette coupure de presse',
 	'retirer_tous_liens_press_reviews' => 'Retirer tous les coupures de presse',
