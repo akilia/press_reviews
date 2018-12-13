@@ -85,7 +85,7 @@ function autoriser_pressreview_supprimer_dist($faire, $type, $id, $qui, $opt) {
 
 
 /**
- * Autorisation de créer l'élément (pressreview) dans un livres
+ * Autorisation de créer l'élément (pressreview) dans un objet
  *
  * @param  string $faire Action demandée
  * @param  string $type  Type d'objet sur lequel appliquer l'action

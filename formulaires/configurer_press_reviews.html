@@ -2,13 +2,25 @@
 
 	<h3 class="titrem"><:press_reviews:cfg_titre_parametrages:></h3>
 
+	[(#REM|press_reviews_migration)]
+
 	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
 	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	#SET{exclus, #LISTE{spip_rubriques,spip_documents, spip_messages}}
 
 	<form method="post" action="#ENV{action}">
 	<div>
 		#ACTION_FORMULAIRE{#ENV{action}}
-
+		<div class="editer-groupe">
+			#SET{name,objets}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+			<div class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+				<label><:press_review:label_activer_press_review_objets:></label>[
+				<span class='erreur_message'>(#GET{erreurs})</span>
+				]#INCLURE{fond=formulaires/inc-choisir-objets,name=#GET{name},selected=#ENV**{#GET{name}},exclus=#GET{exclus}}
+			</div>
+		
+		</div>
 		<input type="hidden" name="_meta_casier" value="press_reviews" />
 		<p class="boutons"><span class="image_loading">&nbsp;</span><input type="submit" class="submit" value="<:bouton_enregistrer:>" /></p>
 	</div>

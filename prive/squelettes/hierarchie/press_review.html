@@ -1,10 +1,12 @@
 <!-- hierarchie -->
 <a href="#URL_ECRIRE{press_reviews}"><:press_review:titre_press_reviews:></a>
 <BOUCLE_hierarchie(PRESS_REVIEWS){id_press_review}>
-&gt; [(#URL_ECRIRE{livre,id_livre=#ID_LIVRE}|lien_ou_expose{#INFO_TITRE{livres,#ID_LIVRE},''})]
-&gt; <strong class="on">#TITRE</strong>
+#SET{cle_primaire, #VAL{#OBJET}|id_table_objet}
+&gt; [(#URL_ECRIRE{#OBJET,#GET{cle_primaire}=#ID_OBJET}|lien_ou_expose{#INFO_TITRE{#OBJET,#ID_OBJET},''})]
+&gt; <strong class="on">[(#TITRE)]</strong>
 </BOUCLE_hierarchie>
-[(#ENV{id_livre}|oui)
-	&gt; [(#URL_ECRIRE{livre,id_livre=#ID_LIVRE}|lien_ou_expose{#INFO_TITRE{livres,#ID_LIVRE},''})]
+#SET{cle_primaire, #ENV{objet}|id_table_objet}
+[(#ENV{id_objet}|oui)
+	&gt; [(#URL_ECRIRE{#OBJET,#GET{cle_primaire}=#ID_OBJET}|lien_ou_expose{#INFO_TITRE{#OBJET,#ID_OBJET},''})]
 ]&gt; <strong class="on"><:ecrire:info_sans_titre:></strong>
 <//B_hierarchie>

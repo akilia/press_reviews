@@ -22,7 +22,7 @@ include_spip('inc/cvtupload');
  *
  * @param int|string $id_press_review
  *     Identifiant du press_review. 'new' pour un nouveau press_review.
- * @param int $id_livre
+ * @param int $id_objet
  *     Identifiant de l'objet parent (si connu)
  * @param string $retour
  *     URL de redirection après le traitement
@@ -37,7 +37,7 @@ include_spip('inc/cvtupload');
  * @return string
  *     Hash du formulaire
  */
-function formulaires_editer_press_review_identifier_dist($id_press_review = 'new', $id_livre = 0, $retour = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
+function formulaires_editer_press_review_identifier_dist($id_press_review = 'new', $objet, $id_objet = 0, $retour = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
 	return serialize(array(intval($id_press_review)));
 }
 
@@ -50,10 +50,13 @@ function formulaires_editer_press_review_identifier_dist($id_press_review = 'new
  * @return array
  *     Environnement du formulaire
  */
-function formulaires_editer_press_review_charger_dist($id_press_review = 'new', $id_livre = 0, $retour = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
-	$valeurs = formulaires_editer_objet_charger('press_review', $id_press_review, $id_livre, $lier_trad, $retour, $config_fonc, $row, $hidden);
-	if (!$valeurs['id_livre']) {
-		$valeurs['id_livre'] = $id_livre;
+function formulaires_editer_press_review_charger_dist($id_press_review = 'new', $objet, $id_objet = 0, $retour = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
+	$valeurs = formulaires_editer_objet_charger('press_review', $id_press_review, $id_objet, $lier_trad, $retour, $config_fonc, $row, $hidden);
+	if (!$valeurs['id_objet']) {
+		$valeurs['id_objet'] = $id_objet;
+	}
+	if (!$valeurs['objet']) {
+		$valeurs['objet'] = $objet;
 	}
 
 	// regarder si un document est déjà associé à cette coupure de presse
@@ -84,10 +87,10 @@ function formulaires_editer_press_review_fichiers() {
  * @return array
  *     Tableau des erreurs
  */
-function formulaires_editer_press_review_verifier_dist($id_press_review = 'new', $id_livre = 0, $retour = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
+function formulaires_editer_press_review_verifier_dist($id_press_review = 'new', $objet, $id_objet = 0, $retour = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
 	$erreurs = array();
 
-	// inutile ici : $erreurs = formulaires_editer_objet_verifier('press_review', $id_press_review, array('id_livre'));
+	// inutile ici : $erreurs = formulaires_editer_objet_verifier('press_review', $id_press_review, array('id_objet'));
 
 	// On commence par récupérer les infos dont ont va avoir besoin
 	$id_document = _request('id_document');
@@ -104,10 +107,10 @@ function formulaires_editer_press_review_verifier_dist($id_press_review = 'new',
 		set_request('url', $auto['url_site']);
 	}
 
-	// Vérifier qu'on a un id_livre
-	$id_livre = _request('id_livre');
-	if ($id_livre == 0) {
-		$erreurs['id_livre'] = 'Aucune référence livre ici. Vous devez créer une coupure de presse depuis un fiche livre.';
+	// Vérifier qu'on a un id_objet
+	$id_objet = _request('id_objet');
+	if ($id_objet == 0) {
+		$erreurs['id_objet'] = 'Aucune référence à un objet ici.';
 	}
 
 	// Si il n'y a pas encore eu d'upload, vérifier qu'un document a été demandé en upload
@@ -129,8 +132,8 @@ function formulaires_editer_press_review_verifier_dist($id_press_review = 'new',
  * @return array
  *     Retours des traitements
  */
-function formulaires_editer_press_review_traiter_dist($id_press_review = 'new', $id_livre = 0, $retour = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
-	$retours = formulaires_editer_objet_traiter('press_review', $id_press_review, $id_livre, $lier_trad, $retour, $config_fonc, $row, $hidden);
+function formulaires_editer_press_review_traiter_dist($id_press_review = 'new', $objet, $id_objet = 0, $retour = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
+	$retours = formulaires_editer_objet_traiter('press_review', $id_press_review, $id_objet, $lier_trad, $retour, $config_fonc, $row, $hidden);
 
 	// on récupère tout de suite l'id de la press review nouvellement créé
 	$id_press_review = $retours['id_press_review'];

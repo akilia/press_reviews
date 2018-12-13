@@ -1,15 +1,14 @@
 [(#ID_PRESS_REVIEW|oui)
 	[(#AUTORISER{modifier,press_review,#ID_PRESS_REVIEW}|sinon_interdire_acces)]
-	[(#SET{id_parent,#INFO_ID_LIVRE{press_review,#ID_PRESS_REVIEW}})]
+	[(#SET{id_parent,#INFO_ID_OBJET{press_review,#ID_PRESS_REVIEW}})]
 ]
 
 [(#ID_PRESS_REVIEW|non)
-	#SET{id_parent,#ENV{id_livre,#ENV{id_parent}}}
-	[(#GET{id_parent}|non|ou{[(#AUTORISER{creerpressreviewdans, livre, #GET{id_parent}})]}|sinon_interdire_acces)]
+	#SET{id_parent,#ENV{id_objet,#ENV{id_parent}}}
+	[(#GET{id_parent}|non|ou{[(#AUTORISER{creerpressreviewdans, #OBJET, #GET{id_parent}})]}|sinon_interdire_acces)]
 ]
 
 #SET{redirect,#ENV{redirect}|sinon{#ID_PRESS_REVIEW|?{#ID_PRESS_REVIEW|generer_url_entite{press_review},#GET{id_parent}|?{#GET{id_parent}|generer_url_entite{livre},#URL_ECRIRE{livres}}}}}
-
 
 
 <div class="cadre-formulaire-editer">
@@ -28,7 +27,7 @@
 	#SET{redirect,'javascript:if (window.jQuery) jQuery(".entete-formulaire .retour a").followLink();'}
 	<div class="ajax">
 ]
-		[(#FORMULAIRE_EDITER_PRESS_REVIEW{#ENV{id_press_review,oui}, #GET{id_parent}, #GET{redirect}})]
+		[(#FORMULAIRE_EDITER_PRESS_REVIEW{#ENV{id_press_review,oui}, #OBJET, #GET{id_parent}, #GET{redirect}})]
 [(#ENV{retourajax,''}|oui)
 	</div>
 	<script type="text/javascript">/*<!\[CDATA\[*/reloadExecPage('#ENV{exec}');/*\]\]>*/</script>

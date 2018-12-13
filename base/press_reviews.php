@@ -49,7 +49,8 @@ function press_reviews_declarer_tables_objets_sql($tables) {
 		'page' => '',
 		'field'=> array(
 			'id_press_review'    => 'bigint(21) NOT NULL',
-			'id_livre'           => 'bigint(21) NOT NULL DEFAULT 0',
+			'objet'          	 => 'varchar(100) NOT NULL DEFAULT ""',
+			'id_objet'           => 'bigint(21) NOT NULL DEFAULT 0',
 			'id_document'        => 'bigint(21) NOT NULL DEFAULT 0',
 			'titre'              => 'text NOT NULL DEFAULT ""',
 			'descriptif'         => 'text NOT NULL DEFAULT ""',
@@ -59,12 +60,13 @@ function press_reviews_declarer_tables_objets_sql($tables) {
 		),
 		'key' => array(
 			'PRIMARY KEY'        => 'id_press_review',
-			'KEY id_livre'       => 'id_livre',
+			'KEY id_objet'       => 'id_objet',
+			'KEY objet'          => 'objet',
 		),
 		'titre' => 'titre AS titre, "" AS lang',
 		'date' => 'date_en_ligne',
-		'champs_editables'  => array('titre', 'descriptif', 'credit', 'id_livre'),
-		'champs_versionnes' => array('id_livre'),
+		'champs_editables'  => array('titre', 'descriptif', 'credit', 'objet', 'id_objet'),
+		'champs_versionnes' => array(),
 		'rechercher_champs' => array("titre" => 5),
 		'tables_jointures'  => array(),
 

@@ -1,7 +1,7 @@
 <div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_press_review,nouveau}'>
 	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
 	[<ol class="reponse_formulaire reponse_formulaire_erreur">(#ENV{message_erreur}) 
-		[<li>&#8226; &nbsp;<span class="erreur_message"">(#ENV{erreurs/id_livre})</span></li>]
+		[<li>&#8226; &nbsp;<span class="erreur_message"">(#ENV{erreurs/id_objet})</span></li>]
 		[<li>&#8226; &nbsp;<span class="erreur_message"">(#ENV{erreurs/upload})</span></li>]
 	</ol>]
 
@@ -9,7 +9,8 @@
 	<form method="post" action="#ENV{action}" enctype="multipart/form-data"><div>
 		#ACTION_FORMULAIRE{#ENV{action}}
 		<input type="hidden" name="id_press_review" value="#ENV{id_press_review}">
-		<input type="hidden" name="id_livre" value="#ENV{id_livre}">
+		<input type="hidden" name="objet" value="#ENV{objet}">
+		<input type="hidden" name="id_objet" value="#ENV{id_objet}">
 		<input type="hidden" name="id_document" value="#ENV{id_document}">
 
 		<div class="editer-groupe" style='padding-top:0;'>
