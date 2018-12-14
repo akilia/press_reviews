@@ -33,11 +33,9 @@ function action_migration_press_review_dist($arg=null) {
 
 		$id_doc = $value['id_document'];
 		$id_vig = $value['id_vignette'];
-		debug($value);
 		
 		// Récupérer l'id_objet (livre ou auteur de livre)
 		$liaison = sql_fetsel('objet, id_objet', 'spip_documents_liens', 'id_document='.intval($id_doc));
-		debug($liaison);
 
 		// créér la press_review
 		$champs = array( 'objet' => $liaison['objet'],
@@ -49,12 +47,10 @@ function action_migration_press_review_dist($arg=null) {
 						 'date_en_ligne' => $value['date']);
 
 		$id_new_pr = sql_insertq('spip_press_reviews', $champs);
-		debug($id_new_pr);
 
 		// mise à jour de la table de liens spip_documents_liens
 		$glop = sql_updateq('spip_documents_liens', array('id_objet' => $id_new_pr, 'objet' => 'press_review'), 'id_document='.intval($id_doc));
 
-		debug($glop);
 
 		// s'occuper du logo
 		$glip = sql_insertq('spip_documents_liens', array(  'id_document' => $id_vig, 
@@ -70,5 +66,5 @@ function action_migration_press_review_dist($arg=null) {
 
 	}
 
-	debug($compteur, 'FIN');
+	echo $compteur;
 }
