@@ -72,5 +72,15 @@ function press_reviews_declarer_tables_objets_sql($tables) {
 
 	);
 
+	// Ajout du rôle document pour l'objet press_review
+	array_set_merge($tables, 'spip_documents', array(
+		'roles_objets' => array(
+			'press_reviews' => array(
+				'choix' => array('logo','document'),
+				'defaut' => 'logo'
+			)
+		)
+	));
+
 	return $tables;
 }
