@@ -17,4 +17,5 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// T
 	'titre_page_configurer_press_reviews' => 'Coupures de presse',
+	'titre_page_migration_press_reviews' => 'Utilitaire de migration',
 );
