@@ -1,7 +1,7 @@
 #FORMULAIRE_RECHERCHE_ECRIRE{#SELF,ajax}
 <div class="nettoyeur"></div>
 
-<INCLURE{fond=prive/objets/liste/press_reviews, env, ajax, sinon=<:press_review:info_aucun_press_review:>}>
+<INCLURE{fond=prive/objets/liste/press_reviews, env, ajax, par=date_en_ligne, sinon=<:press_review:info_aucun_press_review:>}>
 
 [(#AUTORISER{creer,press_review})
 	[(#URL_ECRIRE{press_review_edit,new=oui}|icone_verticale{<:press_review:icone_creer_press_review:>,press_review,new,right})]

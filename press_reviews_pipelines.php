@@ -33,7 +33,8 @@ function press_reviews_affiche_enfants($flux) {
 				'prive/objets/liste/press_reviews',
 				array(
 					'titre' => _T('press_review:titre_press_reviews'),
-					'id_objet' => $id_objet
+					'id_objet' => $id_objet,
+					'par' => 'date_en_ligne'
 				)
 			);
 
@@ -86,7 +87,6 @@ function press_reviews_boite_infos($flux) {
  * @return array       Données du pipeline
 **/
 function press_reviews_objet_compte_enfants($flux) {
-	debug($flux);
 	if ($flux['args']['objet'] == 'livre' and $id_livre = intval($flux['args']['id_objet'])) {
 		$flux['data']['press_reviews'] = sql_countsel('spip_press_reviews', 'id_livre= ' . intval($id_livre));
 	}
