@@ -72,15 +72,22 @@ function press_reviews_declarer_tables_objets_sql($tables) {
 
 	);
 
-	// Ajout du rôle document pour l'objet press_review
-	array_set_merge($tables, 'spip_documents', array(
-		'roles_objets' => array(
-			'press_reviews' => array(
-				'choix' => array('logo','document'),
-				'defaut' => 'logo'
-			)
+	/*** Ajout des rôles Logo et Document pour l'objet press_review ***/
+	// définition
+	$nouveaux_roles_objets = array(
+		'press_reviews' => array(
+			'choix' => array('logo','document'),
+			'defaut' => 'logo'
 		)
-	));
+	);
+
+	// merge
+	$tables['spip_documents'] = array_merge_recursive(
+		$tables['spip_documents'],
+		array(
+			'roles_objets' => $nouveaux_roles_objets
+		)
+	);
 
 	return $tables;
 }
