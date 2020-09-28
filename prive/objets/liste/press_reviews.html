@@ -18,7 +18,10 @@
 	<tbody>
 	<BOUCLE_liste_press_reviews(PRESS_REVIEWS){id_press_review?}{objet?}{id_objet?}{id_mot?}{id_auteur?}{where?}{recherche?}{tri #ENV{par,num titre},#GET{defaut_tri}}{par titre}{pagination #ENV{nb,10}}>
 		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
-			<td class='logo_media'>[(#LOGO_PRESS_REVIEW|image_reduire{80,35})]</td>
+			
+			<td class='logo_media'>
+				<INCLURE{fond=squelettes/inclure/logo_press_review, id_press_review=#ID_PRESS_REVIEW, largeur=85, hauteur=30}>
+			</td>
 			<td class="titre principale"><a href="[(#ID_PRESS_REVIEW|generer_url_entite{press_review})]" title="<:info_numero_abbreviation|attribut_html:> #ID_PRESS_REVIEW">[(#RANG). ][(#TITRE|sinon{#INFO_FICHIER{document,#ID_DOCUMENT}|basename})][<span class="soustitre"><i>(#CREDIT)</i></span>]</a></td>
 			<td class="id">[(#AUTORISER{modifier,press_review,#ID_PRESS_REVIEW}|?{
 				<a href="[(#URL_ECRIRE{press_review_edit,id_press_review=#ID_PRESS_REVIEW})]">#ID_PRESS_REVIEW</a>,

@@ -1,0 +1,2 @@
+#SET{id_logo, #ID_PRESS_REVIEW|press_reviews_chercher_fichier_logo}
+<BOUCLE_logo_pr(DOCUMENTS){id_document=#GET{id_logo}}>[(#FICHIER|image_reduire{#ENV{largeur,0}, #ENV{hauteur,30}}|inserer_attribut{alt, logo journal})]</BOUCLE_logo_pr>

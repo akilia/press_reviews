@@ -24,3 +24,9 @@ function press_release_methode_upload() {
 
 	return $methodes;
 }
+
+function press_reviews_chercher_fichier_logo($id_document) {
+	$id_logo_press_review = sql_getfetsel('id_document', 'spip_documents_liens', "id_objet=" . intval($id_document) . " AND objet='press_review' AND role='logo'");
+
+	return $id_logo_press_review;
+}
