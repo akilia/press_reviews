@@ -30,3 +30,25 @@ function press_reviews_chercher_fichier_logo($id_document) {
 
 	return $id_logo_press_review;
 }
+
+/* Outils de migration des logos de presse reviews disparus */
+/* Necessite une table de sauvegarde */
+
+function press_review_maj_logos_disparus() {
+	$res = sql_allfetsel('id_document, id_objet', 'spip_documents_liens_logo', array(
+			"objet=".sql_quote('press_review'),
+			"role=".sql_quote('logo'))
+		);
+
+	foreach ($res as $key => $value) {
+		$where = array(
+				'id_document='.intval($value['id_document']),
+				'id_objet='.intval($value['id_objet']),
+				'objet='.sql_quote('press_review')
+				);
+		if (sql_getfetsel('id_document', 'spip_documents_liens', $where)) {
+			sql_updateq('spip_documents_liens', array('role' => 'logo'), $where);
+		}
+	}
+	debug(' migration fini.');
+}
