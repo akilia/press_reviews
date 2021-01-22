@@ -52,3 +52,19 @@ function press_review_maj_logos_disparus() {
 	}
 	debug(' migration fini.');
 }
+
+
+function press_review_maj_logos_disparus_2() {
+	$res = sql_allfetsel('id_document', 'spip_documents_liens', array(
+			"objet=".sql_quote('press_review'),
+			"role=".sql_quote('logo'))
+		);
+	$res = array_unique(array_column($res, 'id_document'));
+	debug($res);
+	foreach ($res as $value) {
+		
+		sql_updateq('spip_documents', array('statut' => 'publie'), 'id_document='.intval($value));
+	
+	}
+	debug("Migration fini.");
+}
