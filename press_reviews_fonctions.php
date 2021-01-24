@@ -61,10 +61,18 @@ function press_review_maj_logos_disparus_2() {
 		);
 	$res = array_unique(array_column($res, 'id_document'));
 	debug($res);
-	foreach ($res as $value) {
-		
-		sql_updateq('spip_documents', array('statut' => 'publie'), 'id_document='.intval($value));
+
+	$compteur = 0;
+
 	
+	foreach ($res as $value) {
+		$where = array("id_document=".intval($value), "objet=".sql_quote('press_review'), "role=".sql_quote('document'));
+		if ($id_document = sql_getfetsel('id_document', 'spip_documents_liens', $where)) {
+			debug($id_document);
+			$compteur++;
+			sql_updateq('spip_documents_liens', array('role' => 'logo'), 'id_document='.intval($value));
+		}
 	}
-	debug("Migration fini.");
+
+	debug("compteur = $compteur. Migration fini.");
 }
