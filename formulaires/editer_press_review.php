@@ -113,12 +113,6 @@ function formulaires_editer_press_review_verifier_dist($id_press_review = 'new',
 		$erreurs['id_objet'] = 'Aucune référence à un objet ici.';
 	}
 
-	// Si il n'y a pas encore eu d'upload, vérifier qu'un document a été demandé en upload
-	
-	if ($id_document == 0 AND $taille_fichier == 0 AND !$url){
-		$erreurs['upload'] = 'Charger au moins un document';
-	}
-
 
 	return $erreurs;
 }
